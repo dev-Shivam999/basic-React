@@ -1,33 +1,36 @@
-
+import axios from 'axios';
 import  { useEffect, useState } from 'react';
 import Item from './Item';
-import Loading from './L';
-import { api } from './api';
+import L from './L';
+import Search from './Search';
 
 const Home = () => {
     const [dat, setdata] = useState<pop[]>([])
-    const [L, setL] = useState<boolean>(true)
-    async function api2() {
-
-      const data=await api(false)
-        
+    const [Loading,setL]=useState<boolean>(true)
+    async function api() {
+        const {data} = await axios.get('https://fakestoreapi.com/products')
+        //   console.log(data.data);
         setdata(data)
-        setL(false);
+        setL(false)
 
 
 
     }
     useEffect(() => {
-        api2();
+        api();
     }, [])
 
     
     return (
-        <div className='row gap-3 w-100'>
-            {
-                L ? <Loading />:    dat?.length>0&&dat.map((p,i)=><Item image={p.image} category={p.category} id={p.id} price={p.price} description={p.description} title={p.title} key={i}/>)
-            }
-        </div>
+     <>
+    <Search dat={dat} />
+
+            <div className='row gap-3'>
+                {
+                    Loading ? <L /> : dat?.length > 0 && dat.map((p, i) => <Item image={p.image} category={p.category} id={p.id} price={p.price} description={p.description} title={p.title} key={i} />)
+                }
+            </div>
+     </>
     );
 };
 

@@ -8,6 +8,7 @@ function App() {
 
   return (
    <>
+   
    <h1 className='my-3'> Fake Store API</h1>
    <Routes>
     <Route path='/' element={<Home/>} />
