@@ -1,26 +1,21 @@
-import axios from 'axios';
-import  { useEffect, useState } from 'react';
+
+
+import { useDispatch } from 'react-redux';
 import Item from './Item';
 import L from './L';
 import Search from './Search';
+import useApi from './api';
+import { increment } from '../store/Tool';
+import { useEffect } from 'react';
 
 const Home = () => {
-    const [dat, setdata] = useState<pop[]>([])
-    const [Loading,setL]=useState<boolean>(true)
-    async function api() {
-        const {data} = await axios.get('https://fakestoreapi.com/products')
-        //   console.log(data.data);
-        setdata(data)
-        setL(false)
-
-
-
-    }
+    const { dat, Loading } = useApi('https://fakestoreapi.com/products');
+    const dispatch = useDispatch();
     useEffect(() => {
-        api();
-    }, [])
-
-    
+        if (dat.length > 0) {
+            dispatch(increment(dat)); 
+        }
+    }, [dat, dispatch])
     return (
      <>
     <Search dat={dat} />
