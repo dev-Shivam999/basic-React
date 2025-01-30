@@ -1,0 +1,144 @@
+// ans 1
+
+
+let sum=0;
+for(let i=1;i<=100;i++){
+    sum+=i;
+}
+
+console.log(sum);
+
+
+
+
+// ans 2
+
+for (let i = 0; i <=20; i++) {
+   if (i%2==0) {
+    console.log(i);
+    
+   }
+    
+}
+
+
+// ans 3
+
+const arr = [1, 2, 3, 4];
+const newArr=[];
+
+for (let i = 0; i < arr.length; i++) {
+   newArr.push(arr[i]*arr[i]);
+    
+}
+console.log(newArr);
+
+
+
+// ans 4
+
+const arr2 = [5, 12, 3, 8, 7];
+let max=arr2[0];
+for (let i = 0; i < arr2.length; i++) {
+   
+    if (max<arr2[i]) {
+        max=arr2[i];
+    }
+    
+}
+console.log(max);
+
+
+
+// ans 5
+
+
+let str="i love javascript ans cpp";
+let count = 0;
+for (let i = 0; i < str.length; i++) {
+    if (str[i] == "a" || str[i] == "e" || str[i] == "i" || str[i] == "o" || str[i] =="u") {
+        count++;
+    }
+    
+}
+console.log(count);
+
+
+// ans 6
+
+const arr3 = [1, 2, 3, 4, 5];
+let sum2=0;
+for (let i = 0; i < arr3.length; i++) {
+    sum2+=arr3[i];
+    
+}
+
+console.log(sum2);
+
+
+
+
+// ans 7
+
+
+const arr4 = [1, 2, 3];
+
+for (let i = 0; i < arr4.length/2; i++) {
+    let temp = arr4[i];
+   arr4[i] = arr4[arr4.length-1-i];
+    arr4[arr4.length - 1 - i]=temp;
+}
+console.log(arr4);
+
+
+
+
+// ans 8
+
+
+const number=[]
+
+for (let i = 2; i <=50; i++) {
+
+    let flag=true;
+
+    for (let j = 2; j <=Math.sqrt(i); j++) {
+        if (i%j==0) {
+            
+            flag=false;
+            break;
+        }
+        
+    }
+    if (flag) {
+        
+        number.push(i)
+    }
+    
+}
+
+console.log(number);
+
+
+
+
+// ans 9
+
+const str2 = "javascript is awesome"
+
+const newStr=str2.split(" ")
+
+console.log(newStr.length);
+
+
+// ans 10
+
+const arr5 = [2, 3, 4, 5]
+ let product=1;
+
+ for (let i = 0; i < arr5.length; i++) {
+    product*=arr5[i];
+    
+ }
+ console.log(product);
+ 

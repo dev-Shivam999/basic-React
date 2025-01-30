@@ -11,6 +11,7 @@ function App() {
    <h1 className='my-3'> Fake Store API</h1>
    <Routes>
     <Route path='/' element={<Home/>} />
+    <Route path='/api' element={<Home/>} />
     <Route path='/Product/:id' element={<Product/>} />
    </Routes>
    </>
