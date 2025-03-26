@@ -1,55 +1,79 @@
-import React, { useState } from 'react';
-import Input from './components/Input';
-import Btn from './components/Btn';
+import { useState } from "react";
 
-const App = () => {
-  const [btn,setBtn]=useState("")
+const teams = [
+  { id: "team1", name: "Team A" },
+  { id: "team2", name: "Team B" },
+  { id: "team3", name: "Team C" },
+];
 
-  const click=(e)=>{
-    console.log(e);
-    
-    
-    if (e!="=") {
+const judges = [
+  { id: "judge1", name: "Judge 1" },
+  { id: "judge2", name: "Judge 2" },
+  { id: "judge3", name: "Judge 3" },
+  { id: "judge4", name: "Judge 4" },
+];
 
-    if (
-      (btn.length == 0 && e == "+") ||
-      (btn.length == 0 && e == "-") ||
-      (btn.length == 0 && e == "*") ||
-      (btn.length == 0 && e == "/")
-      
-    ) {
-    } 
-    else {
-   
+export default function AssignJudges() {
+  const [assignments, setAssignments] = useState({});
 
-        setBtn((p) => p + e);
+  const handleAssign = (judgeId, selectedTeams) => {
+    setAssignments((prev) => ({
+      ...prev,
+      [judgeId]: selectedTeams,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    const payload = {
+      teams: Object.entries(assignments).map(([judgeId, teams]) => ({
+        judges_Id: [judgeId],
+        teams_id: teams,
+      })),
+    };
+
+    console.log("Submitting Data:", payload);
+    try {
+      const response = await fetch("/api/assign-judges", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (response.ok) {
+        alert("Assignments submitted successfully!");
+      }
+    } catch (error) {
+      console.error("Error submitting assignments:", error);
     }
-        
-      
-    }else{
-      
-      if (btn.length == 0 && e == "=") {}
-  else{
-        const lol=eval(btn)
-      console.log(lol);
-      setBtn(lol)
-  }
-      
-    }
-  }
-  
-  
+  };
+
   return (
-    <div>
-      <Input value={btn}/>
-      <hr />
-      <hr />
-      <hr />
-      <hr />
-      <hr />
-    <Btn click={click}/>
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-4">Assign Teams to Judges</h2>
+      {judges.map((judge) => (
+        <div key={judge.id} className="mb-4">
+          <h3 className="font-semibold mb-2">{judge.name}</h3>
+          <select
+            multiple
+            value={assignments[judge.id] || []}
+            onChange={(e) =>
+              handleAssign(
+                judge.id,
+                Array.from(e.target.selectedOptions, (option) => option.value)
+              )
+            }>
+            {teams.map((team) => (
+              <option key={team.id} value={team.id}>
+                {team.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      ))}
+      <button onClick={handleSubmit} className="mt-4">
+        Submit Assignments
+      </button>
     </div>
   );
-};
-
-export default App;
+}
